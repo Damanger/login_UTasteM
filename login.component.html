@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./login.component.css">
+</head>
+
+<body>
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                        <label for="reg-log"></label>
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                                <div class="card-front">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Log In</h4>
+                                            <div class="form-group">
+                                                <input [(ngModel)]="usuario.correo" type="email" class="form-style"
+                                                    placeholder="Email">
+                                                <i class="input-icon uil uil-at"></i>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <input [(ngModel)]="usuario.password" type="password" class="form-style"
+                                                    placeholder="Password">
+                                                <i class="input-icon uil uil-lock-alt"></i>
+                                            </div>
+                                            <a (click)="verificarUsuario()" class="btn mt-4">Login</a>
+                                            <p class="mb-0 mt-4 text-center"
+                                                style="font-size: larger; text-shadow:2px 2px black;"><a href="#Cont"
+                                                    class="link">Forgot your
+                                                    password?</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back">
+                                    <div class="center-wrap">
+                                        <div class="section text-center">
+                                            <form>
+                                                <h4 class="mb-3 pb-3">Sign Up</h4>
+                                                <div class="form-group">
+                                                    <input [(ngModel)]="usuario.nombre" type="text" class="form-style"
+                                                        placeholder="Full Name" name="name" autocomplete="off"
+                                                        pattern="^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]{2,}(\s[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]{2,})?(\s[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]{2,}){1,2}$"
+                                                        (keyup)="validarNombre()"
+                                                        [ngClass]="{'is-invalid': !nombreValido, 'is-valid': nombreValido}">
+                                                    <div class="nombre-container">
+                                                        <div *ngIf="!nombreValido" class="nombre-requirements">
+                                                            Ingrese un nombre válido.
+                                                        </div>
+                                                    </div>
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input [(ngModel)]="usuario.telefono" type="tel" class="form-style"
+                                                        placeholder="Phone Number" name="phone" pattern="\d{10}"
+                                                        autocomplete="off" (keyup)="validarTelefono()"
+                                                        [ngClass]="{'is-invalid': !telefonoValido, 'is-valid': telefonoValido}"
+                                                        maxlength="10">
+                                                    <div class="telefono-container">
+                                                        <div *ngIf="!telefonoValido" class="telefono-requirements">
+                                                            El teléfono debe contener de 10 números.
+                                                        </div>
+                                                    </div>
+                                                    <i class="input-icon uil uil-phone"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input [(ngModel)]="usuario.correo" type="email" class="form-style"
+                                                        placeholder="Email" name="email" autocomplete="off"
+                                                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                                    <i class="input-icon uil uil-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input [(ngModel)]="usuario.password" type="password"
+                                                        class="form-style" placeholder="Password" name="pass"
+                                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!$%#_])[A-Za-z\d@!$%#_]{8,}$"
+                                                        autocomplete="off" (keyup)="validarPassword()"
+                                                        [ngClass]="{'is-invalid': !passwordValido, 'is-valid': passwordValido}">
+                                                    <div class="password-container">
+                                                        <div *ngIf="!passwordValido" class="password-requirements">
+                                                            La contraseña debe contener al menos 1 letra mayúscula,
+                                                            1
+                                                            letra minúscula, 1 número, 1 caracter especial "@, !, $,
+                                                            %,
+                                                            # o _" y debe ser un mínimo de 8 caracteres.
+                                                        </div>
+                                                    </div>
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <select [(ngModel)]="usuario.tipo" class="form-style" name="tipo">
+                                                        <option value="1">Cliente</option>
+                                                        <option value="2">Repartidor</option>
+                                                        <option value="3">Restaurante</option>
+                                                    </select>
+                                                    <i class="input-icon uil uil-user"></i>
+                                                </div>
+                                                <button type="submit" class="btn mt-4" name="send"
+                                                    [disabled]="!validarCampos()"
+                                                    (click)="agregarUsuario()">Register</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Cont" class="modal">
+        <div class="modal-content">
+            <div class="row" style="margin-bottom: 0px !important;">
+                <div class="col s12">
+                    <h4 class="center">Recuperar contraseña</h4>
+                    <br>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 0px !important;">
+                <div class="col s12">
+                    <p>Revise su correo electrónico, !NO OLVIDES REVISAR EL CORREO NO DESEADO¡</p>
+                </div>
+            </div>
+            <div style="border: .5px solid #78909c; padding: 10px;">
+                <div class="row">
+                    <div class="col s12">
+                        <label>Correo electrónico</label>
+                        <input required type="email" placeholder="correo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 center">
+                        <a (click)="cambiarContrasenya()"
+                            class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+                    </div>
+                    <div class="col s6 center">
+                        <a class=" modal-action modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
